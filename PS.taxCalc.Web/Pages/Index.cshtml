@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Home page";
+    
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Tax Calculator</h2>
+            <form method="post" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="postalCode">Postal Code:</label>
+                    <input id="postalCode" asp-for="NewTaxCalculation.PostalCode" type="text" class="form-control" required />
+                    <div class="invalid-feedback">
+                        Please provide a valid postal code.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="annualIncome">Annual Income:</label>
+                    <input id="annualIncome" asp-for="NewTaxCalculation.AnnualIncome" type="number" class="form-control" required />
+                    <div class="invalid-feedback">
+                        Please provide a valid annual income.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Calculate Tax</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Calculation History</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Annual Income</th>
+                        <th>Tax</th>
+                        <th>Calculation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var taxCalculation in Model.TaxCalculations)
+                    {
+                        <tr>
+                            <td>@taxCalculation.PostalCode</td>
+                            <td>@taxCalculation.AnnualIncome</td>
+                            <td>@taxCalculation.TaxAmount</td>
+                            <td>@taxCalculation.CalculationDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
